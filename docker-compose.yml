@@ -1,0 +1,28 @@
+version: "3.9"
+
+services:
+  mongodb:
+    image: mongo:7
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+
+  simulation-engine:
+    build: ./simulation-engine
+    env_file: .env.local
+    depends_on:
+      - mongodb
+    restart: unless-stopped
+
+  analytics-service:
+    build: ./analytics-service
+    ports:
+      - "8000:8000"
+    env_file: .env.local
+    depends_on:
+      - mongodb
+    restart: unless-stopped
+
+volumes:
+  mongo_data:
