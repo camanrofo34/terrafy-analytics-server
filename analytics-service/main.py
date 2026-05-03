@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from dotenv import load_dotenv
-from routes import analysis, ai
+from routes import analysis, chat
 
 load_dotenv()
 app = FastAPI(
@@ -13,4 +13,5 @@ app = FastAPI(
 )
 
 app.include_router(analysis.router, prefix="/analysis")
-app.include_router(ai.router,       prefix="/ai")
+app.include_router(chat.router,       prefix="/ai")
+
